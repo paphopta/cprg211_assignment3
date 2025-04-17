@@ -188,5 +188,29 @@ namespace Assignment3
         {
             return IndexOf(value) != -1;
         }
+
+        public void Reverse()
+        {
+            Node<User> prev = null, curr = Head, next = null;
+            while (curr != null)
+            {
+                next = curr.Next;
+                curr.Next = prev;
+                prev = curr;
+                curr = next;
+            }
+            Head = prev;
+
+            if (Head == null)
+            {
+                Tail = null;
+            }
+            else
+            {
+                Tail = Head;
+                while (Tail.Next != null)
+                    Tail = Tail.Next;
+            }
+        }
     }
 }
