@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assignment3
 {
-    public class SLL : ILinkedListADT<User>
+    public class SLL : ILinkedListADT
     {
         public Node<User> Head { get; set; }
 
