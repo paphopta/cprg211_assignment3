@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -93,5 +94,9 @@ namespace Assignment3
         /// <param name="value">Value to find index of.</param>
         /// <returns>True if element exists with value.</returns>
         bool Contains(User value);
+        User[] ConvertArray();
+
+        /* Temp for debug */
+        void PrintAllNodes();
     }
 }
