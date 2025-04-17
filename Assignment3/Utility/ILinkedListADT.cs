@@ -94,9 +94,14 @@ namespace Assignment3
         /// <param name="value">Value to find index of.</param>
         /// <returns>True if element exists with value.</returns>
         bool Contains(User value);
+
+        /// <summary>
+        /// Convert linked list to array
+        /// </summary>
+        /// <returns>Array of User</returns>
         User[] ConvertArray();
 
-        /* Temp for debug */
+        /* For debug */
         void PrintAllNodes();
     }
 }

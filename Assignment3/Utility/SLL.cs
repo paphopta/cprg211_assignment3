@@ -70,7 +70,11 @@ namespace Assignment3.Utility
         }
         public void Add(User value, int index)
         {
-            if (index == 0)
+            if (index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            else if (index == 0)
             {
                 AddFirst(value);
             }
@@ -97,12 +101,16 @@ namespace Assignment3.Utility
             }
             else
             {
-                throw new NullReferenceException();
+                throw new IndexOutOfRangeException();
             }
         }
         public void Replace(User value, int index)
         {
-            if (index < count)
+            if (index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            else if (index < count)
             {
                 int i = 0;
                 Node current = Head;
@@ -114,7 +122,7 @@ namespace Assignment3.Utility
             }
             else
             {
-                throw new NullReferenceException();
+                throw new IndexOutOfRangeException();
             }
         }
         public int Count()
@@ -134,14 +142,14 @@ namespace Assignment3.Utility
             }
             else
             {
-                throw new NullReferenceException();
+                throw new Exception("CannotRemoveException");
             }
         }
         public void RemoveLast()
         {
             if (Head == null)
             {
-                throw new NullReferenceException();
+                throw new Exception("CannotRemoveException");
             }
             if (Head.Next == null)
             {
@@ -162,7 +170,11 @@ namespace Assignment3.Utility
         }
         public void Remove(int index)
         {
-            if (index == 0)
+            if (index < 0 || index >= count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            else if (index == 0)
             {
                 RemoveFirst();
             }
@@ -183,7 +195,7 @@ namespace Assignment3.Utility
             }
             else
             {
-                throw new NullReferenceException();
+                throw new IndexOutOfRangeException();
             }
         }
         public User GetValue(int index)
@@ -191,7 +203,11 @@ namespace Assignment3.Utility
             int i = 0;
             Node current = Head;
 
-            if (index < count)
+            if (index < 0 || index >= count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            else if (index < count)
             {
                 for (i = 0; i < index; i++)
                 {
@@ -201,7 +217,7 @@ namespace Assignment3.Utility
             }
             else
             {
-                throw new NullReferenceException();
+                throw new IndexOutOfRangeException();
             }
         }
         public int IndexOf(User value)
@@ -217,7 +233,7 @@ namespace Assignment3.Utility
                 index++;
                 current = current.Next;
             }
-            throw new NullReferenceException();
+            return -1;
         }
         public bool Contains(User value)
         {

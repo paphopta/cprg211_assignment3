@@ -106,6 +106,8 @@ namespace Assignment3.Tests
             User input;
 
             input = new User(1, "Joe Blow", "jblow@gmail.com", "password");
+            Assert.Throws<IndexOutOfRangeException>(() => users.Add(input, -1));
+
             users.Add(input, 0);
             result = users.GetValue(0);
             Assert.AreEqual(input, result);
@@ -121,13 +123,13 @@ namespace Assignment3.Tests
             Assert.AreEqual(input, result);
 
             input = new User(4, "Ronald McDonald", "burgers4life63@outlook.com", "mcdonalds999");
-            Assert.Throws<NullReferenceException>(() => users.Add(input, 4));
+            Assert.Throws<IndexOutOfRangeException>(() => users.Add(input, 4));
 
             users.Add(input, 3);
             result = users.GetValue(3);
             Assert.AreEqual(input, result);
 
-            Assert.Throws<NullReferenceException>(() => users.Add(input, 6));
+            Assert.Throws<IndexOutOfRangeException>(() => users.Add(input, 6));
         }
 
         [Test]
@@ -137,7 +139,8 @@ namespace Assignment3.Tests
             User input;
 
             input = new User(1, "Joe Blow", "jblow@gmail.com", "password");
-            Assert.Throws<NullReferenceException>(() => users.Replace(input, 0));
+            Assert.Throws<IndexOutOfRangeException>(() => users.Replace(input, -1));
+            Assert.Throws<IndexOutOfRangeException>(() => users.Replace(input, 0));
 
             users.AddLast(new User(1, "Joe Blow", "jblow@gmail.com", "password"));
             users.AddLast(new User(2, "Joe Schmoe", "joe.schmoe@outlook.com", "abcdef"));
@@ -168,7 +171,7 @@ namespace Assignment3.Tests
             Assert.AreEqual(input, result);
 
             input = new User(8, "Ggg Hhh", "hhhggg@outlook.com", "fgvethsav");
-            Assert.Throws<NullReferenceException>(() => users.Replace(input, 4));
+            Assert.Throws<IndexOutOfRangeException>(() => users.Replace(input, 4));
         }
 
         [Test]
@@ -177,7 +180,7 @@ namespace Assignment3.Tests
             User result;
             User input;
 
-            Assert.Throws<NullReferenceException>(() => users.RemoveFirst());
+            Assert.Throws<Exception>(() => users.RemoveFirst());
 
             users.AddLast(new User(1, "Joe Blow", "jblow@gmail.com", "password"));
             users.AddLast(new User(2, "Joe Schmoe", "joe.schmoe@outlook.com", "abcdef"));
@@ -200,7 +203,7 @@ namespace Assignment3.Tests
             Assert.AreEqual(input, result);
 
             users.RemoveFirst();
-            Assert.Throws<NullReferenceException>(() => users.RemoveFirst());
+            Assert.Throws<Exception>(() => users.RemoveFirst());
         }
 
         [Test]
@@ -209,7 +212,7 @@ namespace Assignment3.Tests
             User result;
             User input;
 
-            Assert.Throws<NullReferenceException>(() => users.RemoveLast());
+            Assert.Throws<Exception>(() => users.RemoveLast());
 
             users.AddLast(new User(1, "Joe Blow", "jblow@gmail.com", "password"));
             users.AddLast(new User(2, "Joe Schmoe", "joe.schmoe@outlook.com", "abcdef"));
@@ -232,7 +235,7 @@ namespace Assignment3.Tests
             Assert.AreEqual(input, result);
 
             users.RemoveLast();
-            Assert.Throws<NullReferenceException>(() => users.RemoveLast());
+            Assert.Throws<Exception>(() => users.RemoveLast());
         }
 
         [Test]
@@ -241,7 +244,8 @@ namespace Assignment3.Tests
             User result;
             User input;
 
-            Assert.Throws<NullReferenceException>(() => users.Remove(0));
+            Assert.Throws<IndexOutOfRangeException>(() => users.Remove(-1));
+            Assert.Throws<IndexOutOfRangeException>(() => users.Remove(0));
 
             users.AddLast(new User(1, "Joe Blow", "jblow@gmail.com", "password"));
             users.AddLast(new User(2, "Joe Schmoe", "joe.schmoe@outlook.com", "abcdef"));
@@ -264,7 +268,7 @@ namespace Assignment3.Tests
             Assert.AreEqual(input, result);
 
             users.Remove(0);
-            Assert.Throws<NullReferenceException>(() => users.Remove(0));
+            Assert.Throws<IndexOutOfRangeException>(() => users.Remove(0));
         }
 
         [Test]
@@ -273,14 +277,14 @@ namespace Assignment3.Tests
             User result;
             User input;
 
-            Assert.Throws<NullReferenceException>(() => users.GetValue(0));
+            Assert.Throws<IndexOutOfRangeException>(() => users.GetValue(0));
 
             users.AddLast(new User(1, "Joe Blow", "jblow@gmail.com", "password"));
             users.AddLast(new User(2, "Joe Schmoe", "joe.schmoe@outlook.com", "abcdef"));
             users.AddLast(new User(3, "Colonel Sanders", "chickenlover1890@gmail.com", "kfc5555"));
             users.AddLast(new User(4, "Ronald McDonald", "burgers4life63@outlook.com", "mcdonalds999"));
 
-            Assert.Throws<NullReferenceException>(() => users.GetValue(4));
+            Assert.Throws<IndexOutOfRangeException>(() => users.GetValue(4));
 
             input = new User(1, "Joe Blow", "jblow@gmail.com", "password");
             result = users.GetValue(0);
@@ -293,6 +297,38 @@ namespace Assignment3.Tests
             input = new User(4, "Ronald McDonald", "burgers4life63@outlook.com", "mcdonalds999");
             result = users.GetValue(3);
             Assert.AreEqual(input, result);
+        }
+
+        [Test]
+        public void TestIndexOf()
+        {
+            int result;
+            User input;
+
+            input = new User(1, "Joe Blow", "jblow@gmail.com", "password");
+            result = users.IndexOf(input);
+            Assert.AreEqual(result, -1);
+
+            users.AddLast(new User(1, "Joe Blow", "jblow@gmail.com", "password"));
+            users.AddLast(new User(2, "Joe Schmoe", "joe.schmoe@outlook.com", "abcdef"));
+            users.AddLast(new User(3, "Colonel Sanders", "chickenlover1890@gmail.com", "kfc5555"));
+            users.AddLast(new User(4, "Ronald McDonald", "burgers4life63@outlook.com", "mcdonalds999"));
+
+            input = new User(1, "Joe Blow", "jblow@gmail.com", "password");
+            result = users.IndexOf(input);
+            Assert.AreEqual(result, 0);
+
+            input = new User(2, "Joe Schmoe", "joe.schmoe@outlook.com", "abcdef");
+            result = users.IndexOf(input);
+            Assert.AreEqual(result, 1);
+
+            input = new User(4, "Ronald McDonald", "burgers4life63@outlook.com", "mcdonalds999");
+            result = users.IndexOf(input);
+            Assert.AreEqual(result, 3);
+
+            input = new User(1, "Ronald McDonald", "burgers4life63@outlook.com", "mcdonalds999");
+            result = users.IndexOf(input);
+            Assert.AreEqual(result, -1);
         }
 
         [Test]
